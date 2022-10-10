@@ -13,7 +13,10 @@ fn main() {
     fg.add_block(ExampleBlock.into());
     let (task, mut handle) = block_on(Runtime::new().start(fg));
 
+    // Trying to get drop to be called on the block
     block_on(handle.terminate()).unwrap();
+
+    // This hangs forever
     block_on(task).unwrap();
 }
 
